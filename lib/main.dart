@@ -1,71 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+// https://flutter.io/docs/development/ui/widgets-intro
+class MyAppBar extends StatelessWidget {
+  MyAppBar({this.title});
 
-void main() => runApp(MyApp());
+  // Fields in a Widget subclass are always marked "final".
 
-// #docregion MyApp
-class MyApp extends StatelessWidget {
-  // #docregion build
+  final Widget title;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Startup Name Generator',
-      home: RandomWords(),
-    );
-  }
-  // #enddocregion build
-}
-// #enddocregion MyApp
-
-// #docregion RWS-var
-class RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 12.0);
-  // #enddocregion RWS-var
-
-  // #docregion _buildSuggestions
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider(); /*2*/
-
-          final index = i ~/ 2; /*3*/
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(20)); /*4*/
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-  // #enddocregion _buildSuggestions
-
-  // #docregion _buildRow
-  Widget _buildRow(WordPair pair) {
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
+    return Container(
+      height: 56.0, // in logical pixels
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: BoxDecoration(color: Colors.blue[500]),
+      // Row is a horizontal, linear layout.
+      child: Row(
+        // <Widget> is the type of items in the list.
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.menu),
+            tooltip: 'Navigation menu',
+            onPressed: null, // null disables the button
+          ),
+          // Expanded expands its child to fill the available space.
+          Expanded(
+            child: title,
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: null,
+          ),
+        ],
       ),
     );
   }
-  // #enddocregion _buildRow
+}
 
-  // #docregion RWS-build
+class MyScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Startup Name Generator'),
+    // Material is a conceptual piece of paper on which the UI appears.
+    return Material(
+      // Column is a vertical, linear layout.
+      child: Column(
+        children: <Widget>[
+          MyAppBar(
+            title: Text(
+              'Example title',
+              style: Theme.of(context).primaryTextTheme.title,
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text('Hello, world!'),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text('Hello, world2!'),
+            ),
+          ),
+        ],
       ),
-      body: _buildSuggestions(),
     );
   }
-  // #enddocregion RWS-build
-  // #docregion RWS-var
 }
-// #enddocregion RWS-var
 
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => new RandomWordsState();
+void main() {
+  runApp(MaterialApp(
+    title: 'My app', // used by the OS task switcher
+    home: MyScaffold(),
+  ));
 }
