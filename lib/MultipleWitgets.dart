@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Image.asset('images/pic2.jpg'),
                   ),
                   Expanded(
@@ -51,16 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ])),
             Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.star, color: Colors.green[500]),
-                  Icon(Icons.star, color: Colors.green[500]),
-                  Icon(Icons.star, color: Colors.green[500]),
-                  Icon(Icons.star, color: Colors.black),
-                  Icon(Icons.star, color: Colors.black),
-                ],
-              ),
+              child: _MyHomePageState2(),
             ),
           ],
         ),
@@ -69,17 +60,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class _MyHomePageState2 extends State<MyHomePage> {
+class _MyHomePageState2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var packedRow = Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(Icons.star, color: Colors.green[500]),
         Icon(Icons.star, color: Colors.green[500]),
         Icon(Icons.star, color: Colors.green[500]),
         Icon(Icons.star, color: Colors.black),
-        Icon(Icons.star, color: Colors.black),
+        Icon(Icons.edit, color: Colors.black),
       ],
     );
   }
